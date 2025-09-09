@@ -3,6 +3,7 @@
     public enum RepositoryType
     {
         InMemory,
-        Mongo
+        Mongo,
+        Postgres
     }
 }

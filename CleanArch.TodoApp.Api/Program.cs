@@ -2,8 +2,10 @@ using CleanArch.TodoApp.Api.Enums;
 using CleanArch.TodoApp.Application.Interfaces;
 using CleanArch.TodoApp.Application.UseCases.Commands;
 using CleanArch.TodoApp.Infrastructure.Configurations;
+using CleanArch.TodoApp.Infrastructure.Data;
 using CleanArch.TodoApp.Infrastructure.Repositories;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,6 +31,13 @@ if(repoType  == RepositoryType.Mongo)
         var settings = sp.GetRequiredService<IOptions<MongoDbSettings>>().Value;
         return new MongoTodoTaskRepository(settings);
     });
+}
+else if (repoType == RepositoryType.Postgres)
+{
+    builder.Services.AddDbContext<TodoDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection")));
+
+    builder.Services.AddScoped<ITodoTaskRepository, PostgresTodoTaskRepository>();
 }
 else
 {
