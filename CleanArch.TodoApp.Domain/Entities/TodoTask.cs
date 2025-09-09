@@ -1,13 +1,8 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-
-namespace CleanArch.TodoApp.Domain.Entities
+﻿namespace CleanArch.TodoApp.Domain.Entities
 {
     public class TodoTask
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; private set; } // Mongo ObjectId
+        public string Id { get; private set; } = Guid.NewGuid().ToString();
         public string Title { get; private set; }
         public string Description { get; private set; }
         public bool IsCompleted { get; private set; }

@@ -18,8 +18,6 @@ namespace CleanArch.TodoApp.Infrastructure.Repositories
 
         public async Task<TodoTask> AddAsync(TodoTask task)
         {
-            Console.WriteLine("[DEBUG] Mongo Repository: Adding task...");
-
             await _collection.InsertOneAsync(task);
             return task;
         }
