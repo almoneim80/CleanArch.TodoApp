@@ -3,7 +3,7 @@ using CleanArch.TodoApp.Application.Interfaces;
 using CleanArch.TodoApp.Application.UseCases.Commands;
 using CleanArch.TodoApp.Infrastructure.Configurations;
 using CleanArch.TodoApp.Infrastructure.Data;
-using CleanArch.TodoApp.Infrastructure.Repositories;
+using CleanArch.TodoApp.Infrastructure.Repositories.TaskRepo;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;

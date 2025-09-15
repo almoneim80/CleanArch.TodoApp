@@ -2,7 +2,7 @@
 {
     public class TodoTask
     {
-        public string Id { get; private set; } = Guid.NewGuid().ToString();
+        public Guid Id { get; private set; } = Guid.NewGuid();
         public string Title { get; private set; }
         public string Description { get; private set; }
         public bool IsCompleted { get; private set; }

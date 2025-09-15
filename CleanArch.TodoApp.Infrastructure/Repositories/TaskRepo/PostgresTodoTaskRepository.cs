@@ -3,12 +3,13 @@ using CleanArch.TodoApp.Domain.Entities;
 using CleanArch.TodoApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace CleanArch.TodoApp.Infrastructure.Repositories
+namespace CleanArch.TodoApp.Infrastructure.Repositories.TaskRepo
 {
     public class PostgresTodoTaskRepository(TodoDbContext context) : ITodoTaskRepository
     {
         private readonly TodoDbContext _context = context;
 
+        /// <inheritdoc/>
         public async Task<TodoTask> AddAsync(TodoTask task)
         {
             await _context.TodoTasks.AddAsync(task);
@@ -16,7 +17,8 @@ namespace CleanArch.TodoApp.Infrastructure.Repositories
             return task;
         }
 
-        public async Task DeleteAsync(string id)
+        /// <inheritdoc/>
+        public async Task DeleteAsync(Guid id)
         {
             var task = await _context.TodoTasks.FindAsync(id);
             if (task != null)
@@ -26,16 +28,20 @@ namespace CleanArch.TodoApp.Infrastructure.Repositories
             }
         }
 
+        /// <inheritdoc/>
         public async Task<List<TodoTask>> GetAllAsync()
         {
             return await _context.TodoTasks.AsNoTracking().ToListAsync();
         }
 
-        public async Task<TodoTask?> GetByIdAsync(string id)
+        /// <inheritdoc/>
+        public async Task<TodoTask?> GetByIdAsync(Guid id)
         {
-            return await _context.TodoTasks.AsNoTracking().FirstOrDefaultAsync(t => t.Id == id);
+            return await _context.TodoTasks.AsNoTracking()
+                .FirstOrDefaultAsync(t => t.Id.Equals(id));
         }
 
+        /// <inheritdoc/>
         public async Task UpdateAsync(TodoTask task)
         {
             _context.TodoTasks.Update(task);

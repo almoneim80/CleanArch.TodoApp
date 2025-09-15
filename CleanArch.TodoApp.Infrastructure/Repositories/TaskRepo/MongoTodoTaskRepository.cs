@@ -4,7 +4,7 @@ using CleanArch.TodoApp.Infrastructure.Configurations;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 
-namespace CleanArch.TodoApp.Infrastructure.Repositories
+namespace CleanArch.TodoApp.Infrastructure.Repositories.TaskRepo
 {
     public class MongoTodoTaskRepository : ITodoTaskRepository
     {
@@ -16,31 +16,36 @@ namespace CleanArch.TodoApp.Infrastructure.Repositories
             _collection = database.GetCollection<TodoTask>(settings.CollectionName);
         }
 
+        /// <inheritdoc/>
         public async Task<TodoTask> AddAsync(TodoTask task)
         {
             await _collection.InsertOneAsync(task);
             return task;
         }
 
-        public async Task<TodoTask?> GetByIdAsync(string id)
+        /// <inheritdoc/>
+        public async Task<TodoTask?> GetByIdAsync(Guid id)
         {
             var filter = Builders<TodoTask>.Filter.Eq(t => t.Id, id);
             return await _collection.Find(filter).FirstOrDefaultAsync();
         }
 
+        /// <inheritdoc/>
         public async Task<List<TodoTask>> GetAllAsync()
         {
             var filter = Builders<TodoTask>.Filter.Empty;
             return await _collection.Find(filter).ToListAsync();
         }
 
+        /// <inheritdoc/>
         public async Task UpdateAsync(TodoTask task)
         {
             var filter = Builders<TodoTask>.Filter.Eq(t => t.Id, task.Id);
             await _collection.ReplaceOneAsync(filter, task);
         }
 
-        public async Task DeleteAsync(string id)
+        /// <inheritdoc/>
+        public async Task DeleteAsync(Guid id)
         {
             var filter = Builders<TodoTask>.Filter.Eq(t => t.Id, id);
             await _collection.DeleteOneAsync(filter);
