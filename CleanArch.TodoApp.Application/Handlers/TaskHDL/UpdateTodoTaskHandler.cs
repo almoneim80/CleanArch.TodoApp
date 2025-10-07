@@ -1,9 +1,9 @@
 ﻿using CleanArch.TodoApp.Application.Interfaces;
-using CleanArch.TodoApp.Application.UseCases.Commands;
+using CleanArch.TodoApp.Application.UseCases.Commands.TaskCMD;
 using CleanArch.TodoApp.Domain.Entities;
 using MediatR;
 
-namespace CleanArch.TodoApp.Application.UseCases
+namespace CleanArch.TodoApp.Application.Handlers.TaskHDL
 {
     public class UpdateTodoTaskHandler : IRequestHandler<UpdateTodoTaskCommand, TodoTask?>
     {

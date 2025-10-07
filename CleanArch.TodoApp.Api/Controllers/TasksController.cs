@@ -1,4 +1,4 @@
-﻿using CleanArch.TodoApp.Application.UseCases.Commands;
+﻿using CleanArch.TodoApp.Application.UseCases.Commands.TaskCMD;
 using CleanArch.TodoApp.Application.UseCases.Queries;
 using CleanArch.TodoApp.Domain.Entities;
 using MediatR;
@@ -41,7 +41,7 @@ namespace CleanArch.TodoApp.Api.Controllers
         /// Get task by Id
         /// </summary>
         [HttpGet("{id}")]
-        public async Task<ActionResult<TodoTask>> GetTaskById(string id)
+        public async Task<ActionResult<TodoTask>> GetTaskById(Guid id)
         {
             var result = await _mediator.Send(new GetTaskByIdQuery(id));
             if (result == null)
@@ -53,7 +53,7 @@ namespace CleanArch.TodoApp.Api.Controllers
         /// Update a task
         /// </summary>
         [HttpPut("{id}")]
-        public async Task<ActionResult<TodoTask>> UpdateTask(string id, [FromBody] UpdateTodoTaskCommand command)
+        public async Task<ActionResult<TodoTask>> UpdateTask(Guid id, [FromBody] UpdateTodoTaskCommand command)
         {
             if (id != command.Id)
                 return BadRequest("ID in URL does not match ID in body.");
@@ -69,7 +69,7 @@ namespace CleanArch.TodoApp.Api.Controllers
         /// Delete a task
         /// </summary>
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteTask(string id)
+        public async Task<ActionResult> DeleteTask(Guid id)
         {
             var success = await _mediator.Send(new DeleteTodoTaskCommand(id));
             if (!success)

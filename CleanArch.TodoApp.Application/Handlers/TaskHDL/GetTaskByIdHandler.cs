@@ -3,7 +3,7 @@ using CleanArch.TodoApp.Application.UseCases.Queries;
 using CleanArch.TodoApp.Domain.Entities;
 using MediatR;
 
-namespace CleanArch.TodoApp.Application.UseCases
+namespace CleanArch.TodoApp.Application.Handlers.TaskHDL
 {
     public class GetTaskByIdHandler : IRequestHandler<GetTaskByIdQuery, TodoTask?>
     {

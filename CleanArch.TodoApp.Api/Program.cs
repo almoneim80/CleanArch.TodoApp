@@ -1,9 +1,11 @@
 using CleanArch.TodoApp.Api.Enums;
 using CleanArch.TodoApp.Application.Interfaces;
-using CleanArch.TodoApp.Application.UseCases.Commands;
+using CleanArch.TodoApp.Application.UseCases.Commands.TaskCMD;
 using CleanArch.TodoApp.Infrastructure.Configurations;
 using CleanArch.TodoApp.Infrastructure.Data;
+using CleanArch.TodoApp.Infrastructure.Repositories;
 using CleanArch.TodoApp.Infrastructure.Repositories.TaskRepo;
+using CleanArch.TodoApp.Infrastructure.Repositories.UserRepo;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -41,7 +43,8 @@ else if (repoType == RepositoryType.Postgres)
 }
 else
 {
-    //builder.Services.AddSingleton<ITodoTaskRepository, InMemoryTodoTaskRepository>();
+    builder.Services.AddSingleton<ITodoTaskRepository, InMemoryTodoTaskRepository>();
+    builder.Services.AddSingleton<IUserRepository, InMemoryUserRepository>();
 }
 
 Console.WriteLine($"[DEBUG] Repository type from config: {repoType}");
